@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hangman Drawing</title>
+    <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+    <div class = "container" style = "display: flexbox; flex-direction: column;">
+        <!-- hide at first and display over whole screen when win -->
+        
+        <h1 id = "heading">Hangman</h1>
+        <button style = "display: none;" id= "restart">Play Again</button>
+
+        <div class="hangman-container">
+            <div class="gallows">
+                <div class="pole"></div>
+                <div class="beam"></div>
+                <div class="support"></div>
+                <div class="base"></div>
+            </div>
+            <div class="figure">
+                <div class="head"></div>
+                <div class="body"></div>
+                <div class="left-arm"></div>
+                <div class="right-arm"></div>
+                <div class="left-leg"></div>
+                <div class="right-leg"></div>
+            </div>
+        </div> 
+        <div class = "display"></div>
+        <div>
+            <p>Wrong Letters:</p>
+            <div class="wrong-letters"></div>
+        </div>
+     
+        <div class="answer" style="display: none"><%= word %></div>
+        
+    </div>
+    
+    <script>
+        const word = document.querySelector('.answer').textContent;
+        const figureParts = document.querySelectorAll('.figure > div');
+        const wrongLetters = [];
+        const wordLetters = word.split('');
+        const correctLetters = Array(word.length).fill('_');
+        const display = document.querySelector('.display');
+        const maxWrong = 6;
+        let wrong = 0;
+
+        function displayWord() {
+            display.innerHTML = correctLetters.join(' ');
+        }
+
+        function displayWrongLetters() {
+            const wrongLettersElement = document.querySelector('.wrong-letters');
+            wrongLettersElement.innerHTML = wrongLetters.join(' ');
+        }
+
+        function displayButton(){
+            const button = document.querySelector('#restart');
+            button.style.display = 'block';
+            //disable keypress
+            document.removeEventListener('keypress', handleKeyPress);
+        }
+
+        function displayFigure() {
+            figureParts.forEach((part, index) => {
+                if (index < wrong) {
+                    part.style.display = 'block';
+                } else {
+                    part.style.display = 'none';
+                }
+            });
+        }
+
+        function updateDisplay() {
+            displayWord();
+            displayFigure();
+            displayWrongLetters();
+        }
+
+        function checkWin() {
+            if (correctLetters.join('') === word) {
+                document.querySelector('#heading').textContent = 'You win!';
+                displayButton();
+            }
+        }
+
+        function checkLose() {
+            if (wrong === maxWrong) {
+                document.querySelector('#heading').textContent = 'You lose! The word was: ' + word;
+                displayButton();
+            }
+        }
+
+        function checkLetter(letter) {
+            if (wordLetters.includes(letter)) {
+                wordLetters.forEach((element, index) => {
+                    if (element === letter) {
+                        correctLetters[index] = letter;
+                    }
+                });
+            } else {
+                wrongLetters.push(letter);
+                wrong++;
+
+            }
+        }
+
+        function handleKeyPress(event) {
+            const letter = event.key.toLowerCase();
+            if (wrong < maxWrong && !wrongLetters.includes(letter) && !correctLetters.includes(letter)) {
+                checkLetter(letter);
+                updateDisplay();
+                checkWin();
+                checkLose();
+            }
+        }
+
+        document.addEventListener('keypress', handleKeyPress);
+        updateDisplay();
+        // on click, render /restart
+        document.querySelector('#restart').addEventListener('click', () => {
+            location.reload();
+        });
+    </script>
+</body>
+</html>
