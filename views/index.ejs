@@ -58,12 +58,7 @@
             wrongLettersElement.innerHTML = wrongLetters.join(' ');
         }
 
-        function displayButton(){
-            const button = document.querySelector('#restart');
-            button.style.display = 'block';
-            //disable keypress
-            document.removeEventListener('keypress', handleKeyPress);
-        }
+        
 
         function displayFigure() {
             figureParts.forEach((part, index) => {
@@ -84,14 +79,12 @@
         function checkWin() {
             if (correctLetters.join('') === word) {
                 document.querySelector('#heading').textContent = 'You win!';
-                displayButton();
             }
         }
 
         function checkLose() {
             if (wrong === maxWrong) {
                 document.querySelector('#heading').textContent = 'You lose! The word was: ' + word;
-                displayButton();
             }
         }
 
