@@ -76,15 +76,24 @@
             displayWrongLetters();
         }
 
+        function displayButton(){
+            const button = document.querySelector('#restart');
+            button.style.display = 'block';
+            //disable keypress
+            document.removeEventListener('keypress', handleKeyPress);
+        }
+
         function checkWin() {
             if (correctLetters.join('') === word) {
                 document.querySelector('#heading').textContent = 'You win!';
+                displayButton();
             }
         }
 
         function checkLose() {
             if (wrong === maxWrong) {
                 document.querySelector('#heading').textContent = 'You lose! The word was: ' + word;
+                displayButton();
             }
         }
 
