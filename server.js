@@ -29,4 +29,11 @@ app.listen(port, () =>{
     console.log(`Server running on port ${port}`);
 });
 
+import fs from 'fs';
 
+function getRandomWord(){
+    const inputD = fs.readFileSync('filtered_words.txt');
+    const words = inputD.toString().split('\n');
+    let randomIndex = Math.floor(Math.random() * words.length);
+    return words[randomIndex];
+}
