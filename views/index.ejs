@@ -19,7 +19,8 @@
 
 <body style="position: relative; background-color: white;">
     <img class="bg"
-        src="https://cdn.wallpaperhub.app/cloudcache/2/8/a/e/6/b/28ae6beda97f2f5a65157af48e5e05813a16696a.jpg">
+        src="https://cdn.wallpaperhub.app/cloudcache/2/8/a/e/6/b/28ae6beda97f2f5a65157af48e5e05813a16696a.jpg"
+        style = "height: 100%;">
     <div style="display: flex; flex-direction: column;">
         <div style="display: flex; flex-direction: column;">
             <!-- hide at first and display over whole screen when win -->
@@ -81,7 +82,7 @@
         const keyboardLayout = [
             ['Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P'],
             ['A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L'],
-            ['Z', 'X', 'C', 'V', 'B', 'N', 'M', 'auto']
+            ['Z', 'X', 'C', 'V', 'B', 'N', 'M']
         ];
 
         letters = [
@@ -116,6 +117,15 @@
                 // Append the row to the keyboard container
                 keyboardContainer.appendChild(row);
             });
+
+            const keyElement = document.createElement('button');
+            keyElement.className = `key btn btn-info`;
+            keyElement.id = 'auto';
+            keyElement.style.width = '100%';
+            keyElement.textContent = 'auto (spacebar)';
+            keyboardContainer.appendChild(keyElement);
+
+
         }
 
         var elements = document.getElementsByClassName("key");
@@ -144,6 +154,7 @@
             let k = 0;
             for (let i = 0; i < 3; i++) {
                 for (let j = 0; j < keyboardLayout[i].length; j++) {
+                    console.log(`${k} ${keyboardLayout[i][j]}`);
                     if (wrongLetters.includes(keyboardLayout[i][j].toLowerCase())) {
                         document.querySelector(`.k${k}`).style.backgroundColor = 'red';
                     }
@@ -198,6 +209,8 @@
         function checkWin() {
             if (correctLetters.join('') === word) {
                 document.querySelector('#heading').textContent = 'You win!';
+                document.getElementsByClassName('head')[0].textContent = 'mood';
+                document.getElementsByClassName('head')[0].style.display = 'block';
                 displayButton();
             }
         }
@@ -224,12 +237,8 @@
             }
         }
 
-        let autoButton = document.getElementsByClassName('k26');
-        // console.lo
-        autoButton[0].classList.add('btn');
-        autoButton[0].classList.add('btn-info');
-        autoButton[0].classList.remove('key');
-        autoButton[0].addEventListener('click', autoSelect);
+        let autoButton = document.getElementById('auto');
+        autoButton.addEventListener('click', autoSelect);
 
         function autoSelect() {
             console.log(letters[0])
@@ -240,6 +249,9 @@
         }
 
         function handleKeyPress(event) {
+            if (event.which === 32) {
+                autoSelect();
+            }
             const letter = event.key.toLowerCase();
             const index = letters.indexOf(letter.toUpperCase());
 
