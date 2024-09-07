@@ -5,18 +5,36 @@ body {
     align-items: center;
     height: 100vh;
     margin: 0;
-    background-color: #f0f0f0;
+    background-color: red;
+    transition: background-color 1s ease;
 }
 
+.bg {
+    opacity: 0.6;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: auto;
+    z-index:-1;
+  }
+
+.display {
+    padding-top: 25px;
+    padding-bottom: 25px;;
+    font-size: 36px;
+    text-align: center;
+}
 
 .hangman-container {
     position: relative;
-    width: 300px; /* Ensure the container is wide enough to include both gallows and figure */
+    width: 150px; /* Ensure the container is wide enough to include both gallows and figure */
     height: 300px; /* Ensure the container is tall enough for the gallows */
 }
 
 .gallows {
     position: absolute;
+    margin-left: 150px;
     width: 100px;
     height: 300px;
     background-color: transparent; /* No background color for the gallows itself */
@@ -42,7 +60,7 @@ body {
 
 .support {
     width: 10px;
-    height: 50px;
+    height: 55px;
     background-color: #000;
     position: absolute;
     top: 10px;
@@ -66,65 +84,100 @@ body {
     height: 150px; /* Adjust as needed to fit the figure */
 }
 
+.icon{ font-size: 100px; }
+
 .head {
     width: 30px;
     height: 30px;
-    border: 2px solid #000;
+    border: 0px solid #000;
     border-radius: 50%;
     position: absolute; /* Changed to absolute positioning */
     top: 57px;
-    left: 0px; /* Centered relative to the width of the figure */
+    left: 139px; /* Centered relative to the width of the figure */
+
+    font-size: 60px;;
 }
 
 .body {
-    width: 2px;
+    width: 6px;
     height: 50px;
     background-color: #000;
     position: absolute; /* Changed to absolute positioning */
-    top: 90px; /* Positioned below the head */
-    left: 15px; /* Centered relative to the width of the figure */
+    top: 112px; /* Positioned below the head */
+    left: 166px; /* Centered relative to the width of the figure */
+    font-size: 60px !important;
 }
 
 .left-arm {
     width: 30px;
-    height: 2px;
     background-color: #000;
     position: absolute; /* Changed to absolute positioning */
-    top: 100px; /* Positioned at the same level as the body */
-    left: -15px; /* Positioned to the left of the body */
+    top: 114px; /* Positioned at the same level as the body */
+    left: 137px; /* Positioned to the left of the body */
     transform: rotate(-45deg);
     transform-origin: top right;
 }
 
 .right-arm {
     width: 30px;
-    height: 2px;
     background-color: #000;
     position: absolute; /* Changed to absolute positioning */
-    top: 100px; /* Positioned at the same level as the body */
-    left: 16px; /* Positioned to the right of the body */
+    top: 114px; /* Positioned at the same level as the body */
+    left: 170px; /* Positioned to the right of the body */
     transform: rotate(45deg);
     transform-origin: top left;
 }
 
 .left-leg {
     width: 30px;
-    height: 2px;
     background-color: #000;
     position: absolute; /* Changed to absolute positioning */
-    top: 138px; /* Positioned at the same level as the body */
-    left: -15px; /* Positioned to the left of the body */
+    top: 155px; /* Positioned at the same level as the body */
+    left: 137px; /* Positioned to the left of the body */
     transform: rotate(-45deg);
     transform-origin: top right;
 }
 
 .right-leg {
     width: 30px;
-    height: 2px;
     background-color: #000;
     position: absolute; /* Changed to absolute positioning */
-    top: 138px; /* Positioned at the same level as the body */
-    left: 16px; /* Positioned to the right of the body */
+    top: 155px; /* Positioned at the same level as the body */
+    left: 170px; /* Positioned to the right of the body */
     transform: rotate(45deg);
     transform-origin: top left;
+}
+
+.part {
+    height: 6px;
+}
+
+.keyboard{
+    display: flex;
+    flex-direction: column;
+
+}
+
+.row{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.row span{
+    width:fit-content
+}
+
+.key {
+    margin: 5px 5px 5px 5px;
+    background-color: #6c757d; /* Grey color */
+    border: 1px solid #6c757d; /* Grey border */
+    text-align: center;
+    font-size: 1.2rem;
+    /* cursor: pointer; */
+    user-select: none;
+    color: white;
+    border-radius: 25px;
+    cursor: grab;
+    
 }
